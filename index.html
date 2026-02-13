@@ -3,19 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barangay Census System</title>
+<title>Barangay Vote Tracker</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;padding:20px}
-h1{text-align:center;color:#fff;margin-bottom:20px}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  margin:0;
+  padding:20px
+}
+h1{text-align:center;color:#fff}
 .container{max-width:1100px;margin:auto}
-.section{background:#fff;padding:20px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:20px}
-input,select,button{padding:10px;border-radius:8px;border:1px solid #ddd;font-family:'Poppins'}
+.section{
+  background:#fff;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+  margin-bottom:20px
+}
+input,select,button{
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  font-family:'Poppins'
+}
 input,select{width:100%;margin-bottom:10px}
-button{background:#667eea;color:#fff;border:none;cursor:pointer;font-weight:600}
+button{
+  background:#667eea;
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-weight:600
+}
 button:hover{opacity:0.9}
 .flex{display:flex;gap:10px;flex-wrap:wrap}
 .flex>*{flex:1}
@@ -23,26 +45,78 @@ table{width:100%;border-collapse:collapse}
 th,td{padding:10px;text-align:left}
 th{background:#667eea;color:#fff}
 tr:hover{background:#f2f2f2}
-.avatar{width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
-.badge{padding:4px 8px;border-radius:12px;font-size:12px;font-weight:600;margin-right:4px;display:inline-block}
-.badge-blue{background:#cce5ff}
-.badge-green{background:#d4edda}
-.badge-yellow{background:#fff3cd}
-.status-group{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}
-.radio-card{flex:1;cursor:pointer}
-.radio-card input{display:none}
-.radio-card span{display:block;padding:10px;border-radius:10px;border:2px solid #ddd;text-align:center;font-weight:600;transition:0.3s;background:#f9f9f9}
-.radio-card input:checked + span{background:#667eea;color:#fff;border-color:#667eea}
+
+.avatar{
+  width:35px;height:35px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:600;background:#667eea
+}
+
+.badge{
+  padding:4px 8px;
+  border-radius:12px;
+  font-size:12px;
+  font-weight:600;
+  display:inline-block
+}
+.green{background:#d4edda}
+.red{background:#f8d7da}
+.yellow{background:#fff3cd}
+
+/* DASHBOARD */
+.dashboard{display:flex;gap:10px;flex-wrap:wrap}
+.card{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  font-weight:600;
+  color:#fff
+}
+.total{background:#667eea}
+.support{background:#28a745}
+.against{background:#dc3545}
+.unsure{background:#ffc107;color:#000}
+
+/* VOTE RADIO */
+.vote-group{display:flex;gap:12px;margin:15px 0;flex-wrap:wrap}
+.vote-card{flex:1;min-width:120px;cursor:pointer}
+.vote-card input{display:none}
+.vote-card span{
+  display:block;
+  padding:12px;
+  border-radius:12px;
+  border:2px solid #ddd;
+  text-align:center;
+  font-weight:600;
+  transition:0.3s;
+  background:#f9f9f9
+}
+.vote-card:hover span{transform:translateY(-2px)}
+.vote-card input:checked + span{color:#fff;border:none}
+.vote-card input[value="Sakin"]:checked + span{background:#28a745}
+.vote-card input[value="Hindi Sakin"]:checked + span{background:#dc3545}
+.vote-card input[value="Hindi Sigurado"]:checked + span{background:#ffc107;color:#000}
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h1>Barangay Census System</h1>
+<h1>Barangay Vote Tracker</h1>
 
 <div class="section">
-<h3>Add Resident</h3>
+<h3>Dashboard</h3>
+<div class="dashboard">
+<div class="card total">Total<br><span id="totalCount">0</span></div>
+<div class="card support">Sa’kin<br><span id="supportCount">0</span></div>
+<div class="card against">Hindi Sa’kin<br><span id="againstCount">0</span></div>
+<div class="card unsure">Hindi Sigurado<br><span id="unsureCount">0</span></div>
+</div>
+</div>
+
+<div class="section">
+<h3>Add / Edit Resident</h3>
 <form id="censusForm">
 <input type="hidden" id="editIndex">
 
@@ -65,37 +139,35 @@ tr:hover{background:#f2f2f2}
 </select>
 </div>
 
-<div class="status-group">
-<label class="radio-card">
-<input type="radio" name="status" value="Voter" required>
-<span>🗳️ Voter</span>
+<div class="vote-group">
+<label class="vote-card">
+<input type="radio" name="vote" value="Sakin" required>
+<span>🟢 Sa’kin</span>
 </label>
-
-<label class="radio-card">
-<input type="radio" name="status" value="Student">
-<span>🎓 Student</span>
+<label class="vote-card">
+<input type="radio" name="vote" value="Hindi Sakin">
+<span>🔴 Hindi Sa’kin</span>
 </label>
-
-<label class="radio-card">
-<input type="radio" name="status" value="Employed">
-<span>💼 Employed</span>
+<label class="vote-card">
+<input type="radio" name="vote" value="Hindi Sigurado">
+<span>🟡 Hindi Sigurado</span>
 </label>
 </div>
 
-<button type="submit">Save Resident</button>
+<button type="submit">Save</button>
 </form>
 </div>
 
 <div class="section">
 <h3>Resident List</h3>
+<input type="text" id="search" placeholder="Search name...">
 <table>
 <thead>
 <tr>
 <th>Avatar</th>
 <th>Name</th>
 <th>Age</th>
-<th>Civil Status</th>
-<th>Tags</th>
+<th>Vote</th>
 <th>Action</th>
 </tr>
 </thead>
@@ -104,104 +176,120 @@ tr:hover{background:#f2f2f2}
 </div>
 </div>
 
-<!-- FIREBASE SCRIPT -->
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { 
-  getFirestore, 
-  collection, 
-  addDoc, 
-  updateDoc,
-  deleteDoc,
-  doc,
-  onSnapshot 
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBBEQe3_cC9CWej-cDCZ9HMUzSj0xwtMi0",
-  authDomain: "shesh-c86b5.firebaseapp.com",
-  projectId: "shesh-c86b5",
-  storageBucket: "shesh-c86b5.firebasestorage.app",
-  messagingSenderId: "403916968425",
-  appId: "1:403916968425:web:9bff1dd6eb0c8def257b78",
-  measurementId: "G-7M1BC9L6J4"
+const firebaseConfig={
+apiKey:"AIzaSyBBEQe3_cC9CWej-cDCZ9HMUzSj0xwtMi0",
+authDomain:"shesh-c86b5.firebaseapp.com",
+projectId:"shesh-c86b5",
+storageBucket:"shesh-c86b5.firebasestorage.app",
+messagingSenderId:"403916968425",
+appId:"1:403916968425:web:9bff1dd6eb0c8def257b78"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const censusCollection = collection(db, "residents");
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+const censusCollection=collection(db,"residents");
 
-let people = [];
+let people=[];
 
 function calculateAge(b){
-  let t=new Date(),birth=new Date(b);
-  let age=t.getFullYear()-birth.getFullYear();
-  let m=t.getMonth()-birth.getMonth();
-  if(m<0||(m===0&&t.getDate()<birth.getDate()))age--;
-  return age;
+let t=new Date(),birth=new Date(b);
+let a=t.getFullYear()-birth.getFullYear();
+let m=t.getMonth()-birth.getMonth();
+if(m<0||(m===0&&t.getDate()<birth.getDate()))a--;
+return a;
 }
 
-function randomColor(){
-  return "#"+Math.floor(Math.random()*16777215).toString(16);
-}
-
-onSnapshot(censusCollection, (snapshot)=>{
-  people = [];
-  snapshot.forEach(docSnap=>{
-    people.push({ id: docSnap.id, ...docSnap.data() });
-  });
-  renderTable();
+onSnapshot(censusCollection,snap=>{
+people=[];
+snap.forEach(d=>people.push({id:d.id,...d.data()}));
+render();
+updateDashboard();
 });
 
-function renderTable(){
-  let table=document.getElementById("dataTable");
-  table.innerHTML="";
+function render(){
+dataTable.innerHTML="";
+let s=search.value.toLowerCase();
 
-  people.forEach((p)=>{
-    let age=calculateAge(p.birthdate);
-    let tags="";
+people.forEach(p=>{
+if(!p.fullname.toLowerCase().includes(s))return;
 
-    if(p.status==="Voter")tags+="<span class='badge badge-blue'>Voter</span>";
-    if(p.status==="Student")tags+="<span class='badge badge-yellow'>Student</span>";
-    if(p.status==="Employed")tags+="<span class='badge badge-green'>Employed</span>";
-    if(age>=60)tags+="<span class='badge badge-blue'>Senior</span>";
+let voteBadge="";
+if(p.vote==="Sakin")voteBadge="<span class='badge green'>Sa’kin</span>";
+if(p.vote==="Hindi Sakin")voteBadge="<span class='badge red'>Hindi</span>";
+if(p.vote==="Hindi Sigurado")voteBadge="<span class='badge yellow'>Not Sure</span>";
 
-    table.innerHTML+=`
-    <tr>
-      <td><div class='avatar' style='background:${randomColor()}'>${p.gender==="Male"?"M":"F"}</div></td>
-      <td>${p.fullname}</td>
-      <td>${age}</td>
-      <td>${p.civilstatus}</td>
-      <td>${tags}</td>
-      <td>
-        <button onclick="deleteData('${p.id}')">Delete</button>
-      </td>
-    </tr>`;
-  });
+dataTable.innerHTML+=`
+<tr>
+<td><div class="avatar">${p.gender==="Male"?"M":"F"}</div></td>
+<td>${p.fullname}</td>
+<td>${calculateAge(p.birthdate)}</td>
+<td>${voteBadge}</td>
+<td>
+<button onclick="editData('${p.id}')">Edit</button>
+<button onclick="deleteData('${p.id}')">Delete</button>
+</td>
+</tr>`;
+});
 }
 
-document.getElementById("censusForm").addEventListener("submit", async function(e){
-  e.preventDefault();
+function updateDashboard(){
+totalCount.textContent=people.length;
+supportCount.textContent=people.filter(p=>p.vote==="Sakin").length;
+againstCount.textContent=people.filter(p=>p.vote==="Hindi Sakin").length;
+unsureCount.textContent=people.filter(p=>p.vote==="Hindi Sigurado").length;
+}
 
-  let selectedStatus=document.querySelector('input[name="status"]:checked');
+search.addEventListener("input",render);
 
-  let person={
-    fullname:fullname.value,
-    gender:gender.value,
-    birthdate:birthdate.value,
-    civilstatus:civilstatus.value,
-    status:selectedStatus?selectedStatus.value:null
-  };
+censusForm.addEventListener("submit",async e=>{
+e.preventDefault();
 
-  await addDoc(censusCollection, person);
-  this.reset();
+let selected=document.querySelector('input[name="vote"]:checked');
+let editId=editIndex.value;
+
+let person={
+fullname:fullname.value,
+gender:gender.value,
+birthdate:birthdate.value,
+civilstatus:civilstatus.value,
+vote:selected?selected.value:null
+};
+
+if(editId){
+await updateDoc(doc(db,"residents",editId),person);
+editIndex.value="";
+}else{
+await addDoc(censusCollection,person);
+}
+
+censusForm.reset();
 });
 
-window.deleteData = async function(id){
-  if(confirm("Delete this resident?")){
-    await deleteDoc(doc(db,"residents",id));
-  }
+window.deleteData=async id=>{
+if(confirm("Delete this record?")){
+await deleteDoc(doc(db,"residents",id));
+}
+}
+
+window.editData=id=>{
+let p=people.find(x=>x.id===id);
+if(!p)return;
+
+fullname.value=p.fullname;
+gender.value=p.gender;
+birthdate.value=p.birthdate;
+civilstatus.value=p.civilstatus;
+
+let radio=document.querySelector(`input[name="vote"][value="${p.vote}"]`);
+if(radio)radio.checked=true;
+
+editIndex.value=id;
 }
 
 </script>
