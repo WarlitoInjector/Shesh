@@ -3,295 +3,374 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Barangay Vote Tracker</title>
+<title>Vote Tracker Ni Warlito Pogi</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
 body{
-  font-family:'Poppins',sans-serif;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  margin:0;
-  padding:20px
-}
-h1{text-align:center;color:#fff}
-.container{max-width:1100px;margin:auto}
-.section{
-  background:#fff;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-  margin-bottom:20px
-}
-input,select,button{
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  font-family:'Poppins'
-}
-input,select{width:100%;margin-bottom:10px}
-button{
-  background:#667eea;
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  font-weight:600
-}
-button:hover{opacity:0.9}
-.flex{display:flex;gap:10px;flex-wrap:wrap}
-.flex>*{flex:1}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;text-align:left}
-th{background:#667eea;color:#fff}
-tr:hover{background:#f2f2f2}
-
-.avatar{
-  width:35px;height:35px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:600;background:#667eea
+  min-height:100vh;
+  background:#0f172a;
+  padding:30px;
+  color:white;
+  overflow-x:hidden;
+  position:relative;
 }
 
-.badge{
-  padding:4px 8px;
-  border-radius:12px;
-  font-size:12px;
-  font-weight:600;
-  display:inline-block
+/* FLOATING BLOBS */
+.blob{
+  position:absolute;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.6;
+  animation:float 20s infinite alternate ease-in-out;
 }
-.green{background:#d4edda}
-.red{background:#f8d7da}
-.yellow{background:#fff3cd}
+.blob1{width:500px;height:500px;background:#3b82f6;top:-150px;left:-150px;}
+.blob2{width:400px;height:400px;background:#ec4899;bottom:-150px;right:-100px;animation-delay:5s;}
+.blob3{width:350px;height:350px;background:#22d3ee;top:40%;left:60%;animation-delay:10s;}
+
+@keyframes float{
+  from{transform:translate(-40px,-40px);}
+  to{transform:translate(40px,40px);}
+}
+
+/* GLASS CARD */
+.glass{
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(25px);
+  border-radius:20px;
+  padding:25px;
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  margin-bottom:25px;
+  transition:.3s;
+}
+.glass:hover{transform:translateY(-4px)}
+
+h1{text-align:center;margin-bottom:25px;font-weight:700}
 
 /* DASHBOARD */
-.dashboard{display:flex;gap:10px;flex-wrap:wrap}
+.dashboard{display:flex;gap:20px;flex-wrap:wrap}
 .card{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-  font-weight:600;
-  color:#fff
+  flex:1;min-width:160px;
+  padding:20px;border-radius:20px;text-align:center;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.2);
+  transition:.3s;
 }
-.total{background:#667eea}
-.support{background:#28a745}
-.against{background:#dc3545}
-.unsure{background:#ffc107;color:#000}
+.card:hover{transform:scale(1.05)}
+.card span{display:block;font-size:26px;margin-top:10px;font-weight:700}
 
-/* VOTE RADIO */
-.vote-group{display:flex;gap:12px;margin:15px 0;flex-wrap:wrap}
-.vote-card{flex:1;min-width:120px;cursor:pointer}
-.vote-card input{display:none}
-.vote-card span{
-  display:block;
+/* INPUTS */
+input,select{
+  width:100%;
   padding:12px;
+  margin-bottom:15px;
   border-radius:12px;
-  border:2px solid #ddd;
-  text-align:center;
-  font-weight:600;
-  transition:0.3s;
-  background:#f9f9f9
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.08);
+  color:white;
+  outline:none;
 }
-.vote-card:hover span{transform:translateY(-2px)}
-.vote-card input:checked + span{color:#fff;border:none}
-.vote-card input[value="Sakin"]:checked + span{background:#28a745}
-.vote-card input[value="Hindi Sakin"]:checked + span{background:#dc3545}
-.vote-card input[value="Hindi Sigurado"]:checked + span{background:#ffc107;color:#000}
+select option{
+  background:#0f172a;
+  color:white;
+}
+
+input:focus,select:focus{
+  border:1px solid #3b82f6;
+  box-shadow:0 0 12px rgba(59,130,246,0.7);
+}
+
+/* BUTTONS */
+button{
+  padding:10px 14px;
+  border:none;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+.add-btn{
+  width:100%;
+  background:linear-gradient(135deg,#3b82f6,#06b6d4);
+  color:white;
+}
+.edit-btn{background:#22c55e;color:white;}
+.delete-btn{background:#ef4444;color:white;}
+button:hover{transform:translateY(-2px)}
+
+/* FILTER BAR */
+.filter-bar{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+.filter-bar input,
+.filter-bar select{
+  flex:1;
+  min-width:200px;
+}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;text-align:left;font-size:14px}
+tr:hover{background:rgba(255,255,255,0.08)}
+.actions{display:flex;gap:10px}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+.modal-content{width:90%;max-width:500px}
+
+@media(max-width:768px){
+  body{padding:15px}
+  .dashboard{flex-direction:column}
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<h1>Barangay Vote Tracker</h1>
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
 
-<div class="section">
-<h3>Dashboard</h3>
+<h1>✨ Glass Vote Tracker</h1>
+
+<div class="glass">
 <div class="dashboard">
-<div class="card total">Total<br><span id="totalCount">0</span></div>
-<div class="card support">Sa’kin<br><span id="supportCount">0</span></div>
-<div class="card against">Hindi Sa’kin<br><span id="againstCount">0</span></div>
-<div class="card unsure">Hindi Sigurado<br><span id="unsureCount">0</span></div>
+<div class="card">Total<span id="totalCount">0</span></div>
+<div class="card">Sa'kin<span id="sakinCount">0</span></div>
+<div class="card">Hindi<span id="hindiCount">0</span></div>
+<div class="card">Not Sure<span id="unsureCount">0</span></div>
 </div>
 </div>
 
-<div class="section">
-<h3>Add / Edit Resident</h3>
-<form id="censusForm">
-<input type="hidden" id="editIndex">
+<div class="glass">
+<h3>Add Resident</h3>
+<form id="addForm">
+<input type="text" id="addName" placeholder="Full Name" required>
+<input type="text" id="addPurok" placeholder="Purok (ex: Purok 1)" required>
 
-<div class="flex">
-<input type="text" id="fullname" placeholder="Full Name" required>
-<select id="gender" required>
+<select id="addGender" required>
 <option value="">Gender</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
+<option>Male</option>
+<option>Female</option>
 </select>
-</div>
 
-<div class="flex">
-<input type="date" id="birthdate" required>
-<select id="civilstatus" required>
+<input type="date" id="addBirthdate" required>
+
+<select id="addStatus" required>
 <option value="">Civil Status</option>
 <option>Single</option>
 <option>Married</option>
 <option>Widowed</option>
 </select>
-</div>
 
-<div class="vote-group">
-<label class="vote-card">
-<input type="radio" name="vote" value="Sakin" required>
-<span>🟢 Sa’kin</span>
-</label>
-<label class="vote-card">
-<input type="radio" name="vote" value="Hindi Sakin">
-<span>🔴 Hindi Sa’kin</span>
-</label>
-<label class="vote-card">
-<input type="radio" name="vote" value="Hindi Sigurado">
-<span>🟡 Hindi Sigurado</span>
-</label>
-</div>
+<select id="addVote" required>
+<option value="">Vote</option>
+<option value="Sakin">Sa'kin</option>
+<option value="Hindi Sakin">Hindi Sa'kin</option>
+<option value="Hindi Sigurado">Not Sure</option>
+</select>
 
-<button type="submit">Save</button>
+<button type="submit" class="add-btn">Add Resident</button>
 </form>
 </div>
 
-<div class="section">
-<h3>Resident List</h3>
-<input type="text" id="search" placeholder="Search name...">
+<div class="glass">
+<h3>Residents</h3>
+
+<div class="filter-bar">
+<input type="text" id="searchInput" placeholder="🔍 Search name...">
+<select id="purokFilter">
+<option value="">Filter by Purok</option>
+</select>
+</div>
+
 <table>
 <thead>
 <tr>
-<th>Avatar</th>
 <th>Name</th>
+<th>Purok</th>
+<th>Gender</th>
 <th>Age</th>
+<th>Status</th>
 <th>Vote</th>
-<th>Action</th>
+<th>Actions</th>
 </tr>
 </thead>
-<tbody id="dataTable"></tbody>
+<tbody id="tableBody"></tbody>
 </table>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+<div class="modal-content glass">
+<h3>Edit Resident</h3>
+<form id="editForm">
+<input type="text" id="editName" required>
+<input type="text" id="editPurok" required>
+
+<select id="editGender" required>
+<option>Male</option>
+<option>Female</option>
+</select>
+
+<input type="date" id="editBirthdate" required>
+
+<select id="editStatus" required>
+<option>Single</option>
+<option>Married</option>
+<option>Widowed</option>
+</select>
+
+<select id="editVote" required>
+<option value="Sakin">Sa'kin</option>
+<option value="Hindi Sakin">Hindi Sa'kin</option>
+<option value="Hindi Sigurado">Not Sure</option>
+</select>
+
+<button type="submit" class="edit-btn">Save Changes</button>
+</form>
 </div>
 </div>
 
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot } 
+import { getFirestore,collection,addDoc,deleteDoc,doc,updateDoc,onSnapshot }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyBBEQe3_cC9CWej-cDCZ9HMUzSj0xwtMi0",
 authDomain:"shesh-c86b5.firebaseapp.com",
-projectId:"shesh-c86b5",
-storageBucket:"shesh-c86b5.firebasestorage.app",
-messagingSenderId:"403916968425",
-appId:"1:403916968425:web:9bff1dd6eb0c8def257b78"
+projectId:"shesh-c86b5"
 };
 
 const app=initializeApp(firebaseConfig);
 const db=getFirestore(app);
-const censusCollection=collection(db,"residents");
+const residents=collection(db,"residents");
 
-let people=[];
+let allData=[];
+let currentEditId=null;
 
-function calculateAge(b){
-let t=new Date(),birth=new Date(b);
-let a=t.getFullYear()-birth.getFullYear();
-let m=t.getMonth()-birth.getMonth();
-if(m<0||(m===0&&t.getDate()<birth.getDate()))a--;
-return a;
+function calculateAge(birth){
+let today=new Date();
+let b=new Date(birth);
+let age=today.getFullYear()-b.getFullYear();
+let m=today.getMonth()-b.getMonth();
+if(m<0||(m===0&&today.getDate()<b.getDate()))age--;
+return age;
 }
 
-onSnapshot(censusCollection,snap=>{
-people=[];
-snap.forEach(d=>people.push({id:d.id,...d.data()}));
-render();
+onSnapshot(residents,snapshot=>{
+allData=[];
+snapshot.forEach(docSnap=>{
+allData.push({id:docSnap.id,...docSnap.data()});
+});
+renderTable();
+populatePurokFilter();
 updateDashboard();
 });
 
-function render(){
-dataTable.innerHTML="";
-let s=search.value.toLowerCase();
+function renderTable(){
+const search=searchInput.value.toLowerCase();
+const purok=purokFilter.value;
+tableBody.innerHTML="";
 
-people.forEach(p=>{
-if(!p.fullname.toLowerCase().includes(s))return;
-
-let voteBadge="";
-if(p.vote==="Sakin")voteBadge="<span class='badge green'>Sa’kin</span>";
-if(p.vote==="Hindi Sakin")voteBadge="<span class='badge red'>Hindi</span>";
-if(p.vote==="Hindi Sigurado")voteBadge="<span class='badge yellow'>Not Sure</span>";
-
-dataTable.innerHTML+=`
+allData
+.filter(d=>
+d.fullname.toLowerCase().includes(search) &&
+(purok===""||d.purok===purok)
+)
+.forEach(data=>{
+tableBody.innerHTML+=`
 <tr>
-<td><div class="avatar">${p.gender==="Male"?"M":"F"}</div></td>
-<td>${p.fullname}</td>
-<td>${calculateAge(p.birthdate)}</td>
-<td>${voteBadge}</td>
+<td>${data.fullname}</td>
+<td>${data.purok}</td>
+<td>${data.gender}</td>
+<td>${calculateAge(data.birthdate)}</td>
+<td>${data.civilstatus}</td>
+<td>${data.vote}</td>
 <td>
-<button onclick="editData('${p.id}')">Edit</button>
-<button onclick="deleteData('${p.id}')">Delete</button>
+<div class="actions">
+<button class="edit-btn" onclick="openEdit('${data.id}','${data.fullname}','${data.purok}','${data.gender}','${data.birthdate}','${data.civilstatus}','${data.vote}')">Edit</button>
+<button class="delete-btn" onclick="deleteData('${data.id}')">Delete</button>
+</div>
 </td>
 </tr>`;
 });
 }
 
+function populatePurokFilter(){
+let puroks=[...new Set(allData.map(d=>d.purok))];
+purokFilter.innerHTML=`<option value="">Filter by Purok</option>`;
+puroks.forEach(p=>{
+purokFilter.innerHTML+=`<option value="${p}">${p}</option>`;
+});
+}
+
 function updateDashboard(){
-totalCount.textContent=people.length;
-supportCount.textContent=people.filter(p=>p.vote==="Sakin").length;
-againstCount.textContent=people.filter(p=>p.vote==="Hindi Sakin").length;
-unsureCount.textContent=people.filter(p=>p.vote==="Hindi Sigurado").length;
+totalCount.textContent=allData.length;
+sakinCount.textContent=allData.filter(d=>d.vote==="Sakin").length;
+hindiCount.textContent=allData.filter(d=>d.vote==="Hindi Sakin").length;
+unsureCount.textContent=allData.filter(d=>d.vote==="Hindi Sigurado").length;
 }
 
-search.addEventListener("input",render);
-
-censusForm.addEventListener("submit",async e=>{
+addForm.addEventListener("submit",async e=>{
 e.preventDefault();
-
-let selected=document.querySelector('input[name="vote"]:checked');
-let editId=editIndex.value;
-
-let person={
-fullname:fullname.value,
-gender:gender.value,
-birthdate:birthdate.value,
-civilstatus:civilstatus.value,
-vote:selected?selected.value:null
-};
-
-if(editId){
-await updateDoc(doc(db,"residents",editId),person);
-editIndex.value="";
-}else{
-await addDoc(censusCollection,person);
-}
-
-censusForm.reset();
+await addDoc(residents,{
+fullname:addName.value,
+purok:addPurok.value,
+gender:addGender.value,
+birthdate:addBirthdate.value,
+civilstatus:addStatus.value,
+vote:addVote.value
+});
+addForm.reset();
 });
 
 window.deleteData=async id=>{
-if(confirm("Delete this record?")){
 await deleteDoc(doc(db,"residents",id));
 }
+
+window.openEdit=(id,name,purok,gender,birth,status,vote)=>{
+currentEditId=id;
+editName.value=name;
+editPurok.value=purok;
+editGender.value=gender;
+editBirthdate.value=birth;
+editStatus.value=status;
+editVote.value=vote;
+editModal.style.display="flex";
 }
 
-window.editData=id=>{
-let p=people.find(x=>x.id===id);
-if(!p)return;
+editForm.addEventListener("submit",async e=>{
+e.preventDefault();
+await updateDoc(doc(db,"residents",currentEditId),{
+fullname:editName.value,
+purok:editPurok.value,
+gender:editGender.value,
+birthdate:editBirthdate.value,
+civilstatus:editStatus.value,
+vote:editVote.value
+});
+editModal.style.display="none";
+});
 
-fullname.value=p.fullname;
-gender.value=p.gender;
-birthdate.value=p.birthdate;
-civilstatus.value=p.civilstatus;
-
-let radio=document.querySelector(`input[name="vote"][value="${p.vote}"]`);
-if(radio)radio.checked=true;
-
-editIndex.value=id;
-}
-
+searchInput.addEventListener("input",renderTable);
+purokFilter.addEventListener("change",renderTable);
 </script>
 
 </body>
