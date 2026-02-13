@@ -3,56 +3,234 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vote Tracker By Warlito</title>
+<title>Vote Tracker ni Warlito</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#0f172a;min-height:100vh;color:white;overflow-x:hidden;}
-.glass{background:rgba(255,255,255,0.07);backdrop-filter:blur(25px);border-radius:20px;padding:25px;border:1px solid rgba(255,255,255,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.5);margin-bottom:25px;}
-input,select{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:white;outline:none;}
-select option{background:#0f172a;color:white;}
-button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;}
-.primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:white;}
-.edit-btn{background:#22c55e;color:white;margin-right:5px;}
-.delete-btn{background:#ef4444;color:white;}
-.logout{position:absolute;top:20px;right:20px;background:#ef4444;color:white;}
-.dashboard{display:flex;gap:15px;flex-wrap:wrap;}
-.card{flex:1;min-width:130px;padding:20px;border-radius:15px;background:rgba(255,255,255,0.05);text-align:center;border:1px solid rgba(255,255,255,0.15);}
-.card span{display:block;font-size:22px;margin-top:8px;font-weight:700;}
-#loginPage{display:flex;justify-content:center;align-items:center;height:100vh;}
-.login-box{width:350px;}
-#mainSystem{display:none;padding:30px;position:relative;}
-.table-wrapper{max-height:400px;overflow:auto;border-radius:12px;}
-table{width:100%;border-collapse:collapse;min-width:600px;}
-th,td{padding:10px;font-size:14px;}
-thead th{position:sticky;top:0;background:#111827;z-index:2;}
-tr:hover{background:rgba(255,255,255,0.08);}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:0.3s ease;}
-.modal-overlay.active{opacity:1;visibility:visible;}
-.modal{width:400px;transform:scale(0.8);transition:0.3s ease;}
-.modal-overlay.active .modal{transform:scale(1);}
-.modal-buttons{display:flex;gap:10px;margin-top:10px;}
-.cancel-btn{background:#6b7280;color:white;flex:1;}
-.save-btn{background:#22c55e;color:white;flex:1;}
+
+body{
+background:#0f172a;
+min-height:100vh;
+color:white;
+overflow-x:hidden;
+}
+
+/* GLASS */
+.glass{
+background:rgba(255,255,255,0.07);
+backdrop-filter:blur(25px);
+border-radius:20px;
+padding:25px;
+border:1px solid rgba(255,255,255,0.2);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+margin-bottom:25px;
+}
+
+/* INPUT FIXED HEIGHT */
+input,select{
+width:100%;
+height:48px;
+padding:0 12px;
+margin-bottom:12px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
+font-size:14px;
+}
+
+select option{
+background:#0f172a;
+color:white;
+}
+
+/* iPHONE DATE FIX */
+input[type="date"]{
+appearance:none;
+-webkit-appearance:none;
+line-height:48px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+filter:invert(1);
+opacity:0.8;
+}
+
+/* BUTTONS */
+button{
+padding:8px 12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+}
+
+.primary{
+background:linear-gradient(135deg,#3b82f6,#06b6d4);
+color:white;
+}
+
+.edit-btn{
+background:#22c55e;
+color:white;
+margin-right:5px;
+}
+
+.delete-btn{
+background:#ef4444;
+color:white;
+}
+
+.logout{
+position:absolute;
+top:20px;
+right:20px;
+background:#ef4444;
+color:white;
+}
+
+/* DASHBOARD */
+.dashboard{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.card{
+flex:1;
+min-width:130px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+text-align:center;
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.card span{
+display:block;
+font-size:22px;
+margin-top:8px;
+font-weight:700;
+}
+
+/* LOGIN */
+#loginPage{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.login-box{
+width:350px;
+}
+
+/* MAIN */
+#mainSystem{
+display:none;
+padding:20px;
+position:relative;
+}
+
+/* TABLE */
+.table-wrapper{
+max-height:400px;
+overflow:auto;
+border-radius:12px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:600px;
+}
+
+th,td{
+padding:10px;
+font-size:14px;
+text-align:left;
+}
+
+thead th{
+position:sticky;
+top:0;
+background:#111827;
+z-index:2;
+}
+
+tr:hover{
+background:rgba(255,255,255,0.08);
+}
+
+/* MODAL */
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+visibility:hidden;
+transition:0.3s ease;
+}
+
+.modal-overlay.active{
+opacity:1;
+visibility:visible;
+}
+
+.modal{
+width:400px;
+transform:scale(0.8);
+transition:0.3s ease;
+}
+
+.modal-overlay.active .modal{
+transform:scale(1);
+}
+
+.modal-buttons{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.cancel-btn{
+background:#6b7280;
+color:white;
+flex:1;
+}
+
+.save-btn{
+background:#22c55e;
+color:white;
+flex:1;
+}
 </style>
 </head>
+
 <body>
 
+<!-- LOGIN -->
 <div id="loginPage">
 <div class="glass login-box">
 <h2 style="text-align:center;margin-bottom:20px;">🔐 Admin Login</h2>
 <input type="email" id="email" placeholder="Admin Email">
 <input type="password" id="password" placeholder="Password">
-<button class="primary" onclick="login()">Login</button>
+<button class="primary" onclick="login()" style="width:100%;">Login</button>
 <p id="error" style="color:#f87171;text-align:center;margin-top:10px;"></p>
 </div>
 </div>
 
+<!-- MAIN -->
 <div id="mainSystem">
 <button class="logout" onclick="logout()">Logout</button>
-<h1 style="margin-bottom:20px;">✨ Warlito Vote Tracker</h1>
+<h1 style="margin-bottom:20px;">✨ Vote Tracker ni Warlito</h1>
 
 <div class="glass">
 <div class="dashboard">
@@ -92,7 +270,7 @@ tr:hover{background:rgba(255,255,255,0.08);}
 <div class="glass">
 <h3>Residents</h3>
 
-<div style="margin-bottom:10px; display:flex; gap:10px;">
+<div style="margin-bottom:10px;display:flex;gap:10px;">
 <button onclick="setAgeFilter('all')" class="primary">All</button>
 <button onclick="setAgeFilter('minor')" class="primary">Youth</button>
 <button onclick="setAgeFilter('adult')" class="primary">Adults</button>
@@ -117,18 +295,17 @@ tr:hover{background:rgba(255,255,255,0.08);}
 </div>
 </div>
 
+<!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
 <div class="glass modal">
 <h3>Edit Resident</h3>
-<input type="text" id="editName">
 
+<input type="text" id="editName">
 <select id="editGender">
 <option>Male</option>
 <option>Female</option>
 </select>
-
 <input type="date" id="editBirthdate">
-
 <select id="editVote">
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
@@ -139,21 +316,20 @@ tr:hover{background:rgba(255,255,255,0.08);}
 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
 <button class="save-btn" onclick="saveEdit()">Save</button>
 </div>
+
 </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut }
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore,collection,addDoc,deleteDoc,doc,onSnapshot,updateDoc,getDoc }
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, onSnapshot, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyBBEQe3_cC9CWej-cDCZ9HMUzSj0xwtMi0",
 authDomain:"shesh-c86b5.firebaseapp.com",
 projectId:"shesh-c86b5",
-appId:"1:629506404367:web:8f7f6e2b6b07e90e8f3f65"
+appId:"1:403916968425:web:9bff1dd6eb0c8def257b78"
 };
 
 const app=initializeApp(firebaseConfig);
