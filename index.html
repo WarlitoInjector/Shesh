@@ -3,174 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vote Tracker By Warlito.</title>
+<title>Vote Tracker By Warlito</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-
-body{
-background:#0f172a;
-min-height:100vh;
-color:white;
-overflow-x:hidden;
-}
-
-/* GLASS BASE */
-.glass{
-background:rgba(255,255,255,0.07);
-backdrop-filter:blur(25px);
-border-radius:20px;
-padding:25px;
-border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 20px 60px rgba(0,0,0,0.5);
-margin-bottom:25px;
-}
-
-input,select{
-width:100%;
-padding:12px;
-margin-bottom:12px;
-border-radius:10px;
-border:1px solid rgba(255,255,255,0.2);
-background:rgba(255,255,255,0.08);
-color:white;
-outline:none;
-}
-
-select option{
-background:#0f172a;
-color:white;
-}
-
-button{
-padding:8px 12px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-font-weight:600;
-}
-
-.primary{
-background:linear-gradient(135deg,#3b82f6,#06b6d4);
-color:white;
-width:100%;
-}
-
-.edit-btn{
-background:#22c55e;
-color:white;
-margin-right:5px;
-}
-
-.delete-btn{
-background:#ef4444;
-color:white;
-}
-
-.logout{
-position:absolute;
-top:20px;
-right:20px;
-background:#ef4444;
-color:white;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-}
-
-th,td{padding:10px;font-size:14px;}
-tr:hover{background:rgba(255,255,255,0.08);}
-
-.dashboard{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.card{
-flex:1;
-min-width:150px;
-padding:20px;
-border-radius:15px;
-background:rgba(255,255,255,0.05);
-text-align:center;
-border:1px solid rgba(255,255,255,0.15);
-}
-
-.card span{
-display:block;
-font-size:24px;
-margin-top:8px;
-font-weight:700;
-}
-
-/* LOGIN */
-#loginPage{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
+body{background:#0f172a;min-height:100vh;color:white;overflow-x:hidden;}
+.glass{background:rgba(255,255,255,0.07);backdrop-filter:blur(25px);border-radius:20px;padding:25px;border:1px solid rgba(255,255,255,0.2);box-shadow:0 20px 60px rgba(0,0,0,0.5);margin-bottom:25px;}
+input,select{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:white;outline:none;}
+select option{background:#0f172a;color:white;}
+button{padding:8px 12px;border:none;border-radius:8px;cursor:pointer;font-weight:600;}
+.primary{background:linear-gradient(135deg,#3b82f6,#06b6d4);color:white;}
+.edit-btn{background:#22c55e;color:white;margin-right:5px;}
+.delete-btn{background:#ef4444;color:white;}
+.logout{position:absolute;top:20px;right:20px;background:#ef4444;color:white;}
+.dashboard{display:flex;gap:15px;flex-wrap:wrap;}
+.card{flex:1;min-width:130px;padding:20px;border-radius:15px;background:rgba(255,255,255,0.05);text-align:center;border:1px solid rgba(255,255,255,0.15);}
+.card span{display:block;font-size:22px;margin-top:8px;font-weight:700;}
+#loginPage{display:flex;justify-content:center;align-items:center;height:100vh;}
 .login-box{width:350px;}
 #mainSystem{display:none;padding:30px;position:relative;}
-
-/* MODAL */
-.modal-overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(8px);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-visibility:hidden;
-transition:0.3s ease;
-}
-
-.modal-overlay.active{
-opacity:1;
-visibility:visible;
-}
-
-.modal{
-width:400px;
-transform:scale(0.8);
-transition:0.3s ease;
-}
-
-.modal-overlay.active .modal{
-transform:scale(1);
-}
-
-.modal-buttons{
-display:flex;
-gap:10px;
-margin-top:10px;
-}
-
-.cancel-btn{
-background:#6b7280;
-color:white;
-flex:1;
-}
-
-.save-btn{
-background:#22c55e;
-color:white;
-flex:1;
-}
+.table-wrapper{max-height:400px;overflow:auto;border-radius:12px;}
+table{width:100%;border-collapse:collapse;min-width:600px;}
+th,td{padding:10px;font-size:14px;}
+thead th{position:sticky;top:0;background:#111827;z-index:2;}
+tr:hover{background:rgba(255,255,255,0.08);}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:0.3s ease;}
+.modal-overlay.active{opacity:1;visibility:visible;}
+.modal{width:400px;transform:scale(0.8);transition:0.3s ease;}
+.modal-overlay.active .modal{transform:scale(1);}
+.modal-buttons{display:flex;gap:10px;margin-top:10px;}
+.cancel-btn{background:#6b7280;color:white;flex:1;}
+.save-btn{background:#22c55e;color:white;flex:1;}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage">
 <div class="glass login-box">
 <h2 style="text-align:center;margin-bottom:20px;">🔐 Admin Login</h2>
@@ -181,12 +50,9 @@ flex:1;
 </div>
 </div>
 
-<!-- MAIN SYSTEM -->
 <div id="mainSystem">
-
 <button class="logout" onclick="logout()">Logout</button>
-
-<h1 style="margin-bottom:20px;">✨ Premium Glass Vote Tracker</h1>
+<h1 style="margin-bottom:20px;">✨ Warlito Vote Tracker</h1>
 
 <div class="glass">
 <div class="dashboard">
@@ -194,6 +60,8 @@ flex:1;
 <div class="card">Sa'kin<span id="sakinCount">0</span></div>
 <div class="card">Hindi<span id="hindiCount">0</span></div>
 <div class="card">Not Sure<span id="unsureCount">0</span></div>
+<div class="card">Youth<span id="minorCount">0</span></div>
+<div class="card">Adults<span id="adultCount">0</span></div>
 </div>
 </div>
 
@@ -201,39 +69,44 @@ flex:1;
 <h3>Add Resident</h3>
 <form id="addForm">
 <input type="text" id="addName" placeholder="Full Name" required>
-<input type="text" id="addPurok" placeholder="Purok" required>
+
 <select id="addGender" required>
 <option value="">Gender</option>
 <option>Male</option>
 <option>Female</option>
 </select>
+
 <input type="date" id="addBirthdate" required>
-<select id="addStatus" required>
-<option value="">Civil Status</option>
-<option>Single</option>
-<option>Married</option>
-<option>Widowed</option>
-</select>
+
 <select id="addVote" required>
 <option value="">Vote</option>
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
 <option value="Hindi Sigurado">Not Sure</option>
 </select>
-<button type="submit" class="primary">Add Resident</button>
+
+<button type="submit" class="primary" style="width:100%;">Add Resident</button>
 </form>
 </div>
 
 <div class="glass">
 <h3>Residents</h3>
+
+<div style="margin-bottom:10px; display:flex; gap:10px;">
+<button onclick="setAgeFilter('all')" class="primary">All</button>
+<button onclick="setAgeFilter('minor')" class="primary">Youth</button>
+<button onclick="setAgeFilter('adult')" class="primary">Adults</button>
+</div>
+
+<input type="text" id="searchInput" placeholder="Search name...">
+
+<div class="table-wrapper">
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Purok</th>
 <th>Gender</th>
 <th>Age</th>
-<th>Status</th>
 <th>Vote</th>
 <th>Action</th>
 </tr>
@@ -241,25 +114,21 @@ flex:1;
 <tbody id="tableBody"></tbody>
 </table>
 </div>
-
+</div>
 </div>
 
-<!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
 <div class="glass modal">
 <h3>Edit Resident</h3>
 <input type="text" id="editName">
-<input type="text" id="editPurok">
+
 <select id="editGender">
 <option>Male</option>
 <option>Female</option>
 </select>
+
 <input type="date" id="editBirthdate">
-<select id="editStatus">
-<option>Single</option>
-<option>Married</option>
-<option>Widowed</option>
-</select>
+
 <select id="editVote">
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
@@ -277,10 +146,7 @@ flex:1;
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import {
-getFirestore,collection,addDoc,deleteDoc,
-doc,onSnapshot,updateDoc,getDoc
-}
+import { getFirestore,collection,addDoc,deleteDoc,doc,onSnapshot,updateDoc,getDoc }
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig={
@@ -297,6 +163,7 @@ const residents=collection(db,"residents");
 
 let selectedId=null;
 let allData=[];
+let ageFilter="all";
 
 window.login=async()=>{
 try{
@@ -332,10 +199,8 @@ addForm.addEventListener("submit",async e=>{
 e.preventDefault();
 await addDoc(residents,{
 fullname:addName.value,
-purok:addPurok.value,
 gender:addGender.value,
 birthdate:addBirthdate.value,
-civilstatus:addStatus.value,
 vote:addVote.value
 });
 addForm.reset();
@@ -350,16 +215,28 @@ if(m<0||(m===0&&t.getDate()<b.getDate()))age--;
 return age;
 }
 
+window.setAgeFilter=function(type){
+ageFilter=type;
+renderTable();
+}
+
 function renderTable(){
+let search=searchInput.value.toLowerCase();
 tableBody.innerHTML="";
-allData.forEach(d=>{
+
+allData
+.filter(d=>{
+let age=calculateAge(d.birthdate);
+if(ageFilter==="minor" && (age<15 || age>17)) return false;
+if(ageFilter==="adult" && age<18) return false;
+return d.fullname.toLowerCase().includes(search);
+})
+.forEach(d=>{
 tableBody.innerHTML+=`
 <tr>
 <td>${d.fullname}</td>
-<td>${d.purok}</td>
 <td>${d.gender}</td>
 <td>${calculateAge(d.birthdate)}</td>
-<td>${d.civilstatus}</td>
 <td>${d.vote}</td>
 <td>
 <button class="edit-btn" onclick="openEdit('${d.id}')">Edit</button>
@@ -368,6 +245,8 @@ tableBody.innerHTML+=`
 </tr>`;
 });
 }
+
+searchInput.addEventListener("input",renderTable);
 
 window.deleteData=async id=>{
 await deleteDoc(doc(db,"residents",id));
@@ -378,10 +257,8 @@ selectedId=id;
 const snap=await getDoc(doc(db,"residents",id));
 const data=snap.data();
 editName.value=data.fullname;
-editPurok.value=data.purok;
 editGender.value=data.gender;
 editBirthdate.value=data.birthdate;
-editStatus.value=data.civilstatus;
 editVote.value=data.vote;
 editModal.classList.add("active");
 }
@@ -391,10 +268,8 @@ window.closeModal=()=>{editModal.classList.remove("active");}
 window.saveEdit=async()=>{
 await updateDoc(doc(db,"residents",selectedId),{
 fullname:editName.value,
-purok:editPurok.value,
 gender:editGender.value,
 birthdate:editBirthdate.value,
-civilstatus:editStatus.value,
 vote:editVote.value
 });
 closeModal();
@@ -405,9 +280,18 @@ totalCount.textContent=allData.length;
 sakinCount.textContent=allData.filter(d=>d.vote==="Sakin").length;
 hindiCount.textContent=allData.filter(d=>d.vote==="Hindi Sakin").length;
 unsureCount.textContent=allData.filter(d=>d.vote==="Hindi Sigurado").length;
+
+minorCount.textContent=allData.filter(d=>{
+let age=calculateAge(d.birthdate);
+return age>=15 && age<=17;
+}).length;
+
+adultCount.textContent=allData.filter(d=>{
+let age=calculateAge(d.birthdate);
+return age>=18;
+}).length;
 }
 </script>
 
 </body>
 </html>
-
