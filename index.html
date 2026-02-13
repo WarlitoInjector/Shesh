@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vote Tracker Ni Warlito Pogi</title>
+<title>Vote Tracker By Warlito.</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -11,142 +11,182 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
 body{
-  min-height:100vh;
-  background:#0f172a;
-  padding:30px;
-  color:white;
-  overflow-x:hidden;
-  position:relative;
+background:#0f172a;
+min-height:100vh;
+color:white;
+overflow-x:hidden;
 }
 
-/* FLOATING BLOBS */
-.blob{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(120px);
-  opacity:.6;
-  animation:float 20s infinite alternate ease-in-out;
-}
-.blob1{width:500px;height:500px;background:#3b82f6;top:-150px;left:-150px;}
-.blob2{width:400px;height:400px;background:#ec4899;bottom:-150px;right:-100px;animation-delay:5s;}
-.blob3{width:350px;height:350px;background:#22d3ee;top:40%;left:60%;animation-delay:10s;}
-
-@keyframes float{
-  from{transform:translate(-40px,-40px);}
-  to{transform:translate(40px,40px);}
-}
-
-/* GLASS CARD */
+/* GLASS BASE */
 .glass{
-  background:rgba(255,255,255,0.07);
-  backdrop-filter:blur(25px);
-  border-radius:20px;
-  padding:25px;
-  border:1px solid rgba(255,255,255,0.15);
-  box-shadow:0 20px 60px rgba(0,0,0,0.5);
-  margin-bottom:25px;
-  transition:.3s;
+background:rgba(255,255,255,0.07);
+backdrop-filter:blur(25px);
+border-radius:20px;
+padding:25px;
+border:1px solid rgba(255,255,255,0.2);
+box-shadow:0 20px 60px rgba(0,0,0,0.5);
+margin-bottom:25px;
 }
-.glass:hover{transform:translateY(-4px)}
 
-h1{text-align:center;margin-bottom:25px;font-weight:700}
-
-/* DASHBOARD */
-.dashboard{display:flex;gap:20px;flex-wrap:wrap}
-.card{
-  flex:1;min-width:160px;
-  padding:20px;border-radius:20px;text-align:center;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.2);
-  transition:.3s;
-}
-.card:hover{transform:scale(1.05)}
-.card span{display:block;font-size:26px;margin-top:10px;font-weight:700}
-
-/* INPUTS */
 input,select{
-  width:100%;
-  padding:12px;
-  margin-bottom:15px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.2);
-  background:rgba(255,255,255,0.08);
-  color:white;
-  outline:none;
+width:100%;
+padding:12px;
+margin-bottom:12px;
+border-radius:10px;
+border:1px solid rgba(255,255,255,0.2);
+background:rgba(255,255,255,0.08);
+color:white;
+outline:none;
 }
+
 select option{
-  background:#0f172a;
-  color:white;
+background:#0f172a;
+color:white;
 }
 
-input:focus,select:focus{
-  border:1px solid #3b82f6;
-  box-shadow:0 0 12px rgba(59,130,246,0.7);
-}
-
-/* BUTTONS */
 button{
-  padding:10px 14px;
-  border:none;
-  border-radius:10px;
-  font-weight:600;
-  cursor:pointer;
-  transition:.3s;
-}
-.add-btn{
-  width:100%;
-  background:linear-gradient(135deg,#3b82f6,#06b6d4);
-  color:white;
-}
-.edit-btn{background:#22c55e;color:white;}
-.delete-btn{background:#ef4444;color:white;}
-button:hover{transform:translateY(-2px)}
-
-/* FILTER BAR */
-.filter-bar{
-  display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-  margin-bottom:15px;
-}
-.filter-bar input,
-.filter-bar select{
-  flex:1;
-  min-width:200px;
+padding:8px 12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
 }
 
-/* TABLE */
-table{width:100%;border-collapse:collapse}
-th,td{padding:12px;text-align:left;font-size:14px}
-tr:hover{background:rgba(255,255,255,0.08)}
-.actions{display:flex;gap:10px}
+.primary{
+background:linear-gradient(135deg,#3b82f6,#06b6d4);
+color:white;
+width:100%;
+}
+
+.edit-btn{
+background:#22c55e;
+color:white;
+margin-right:5px;
+}
+
+.delete-btn{
+background:#ef4444;
+color:white;
+}
+
+.logout{
+position:absolute;
+top:20px;
+right:20px;
+background:#ef4444;
+color:white;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th,td{padding:10px;font-size:14px;}
+tr:hover{background:rgba(255,255,255,0.08);}
+
+.dashboard{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.card{
+flex:1;
+min-width:150px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+text-align:center;
+border:1px solid rgba(255,255,255,0.15);
+}
+
+.card span{
+display:block;
+font-size:24px;
+margin-top:8px;
+font-weight:700;
+}
+
+/* LOGIN */
+#loginPage{
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.login-box{width:350px;}
+#mainSystem{display:none;padding:30px;position:relative;}
 
 /* MODAL */
-.modal{
-  position:fixed;
-  top:0;left:0;
-  width:100%;height:100%;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(8px);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+visibility:hidden;
+transition:0.3s ease;
 }
-.modal-content{width:90%;max-width:500px}
 
-@media(max-width:768px){
-  body{padding:15px}
-  .dashboard{flex-direction:column}
+.modal-overlay.active{
+opacity:1;
+visibility:visible;
+}
+
+.modal{
+width:400px;
+transform:scale(0.8);
+transition:0.3s ease;
+}
+
+.modal-overlay.active .modal{
+transform:scale(1);
+}
+
+.modal-buttons{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.cancel-btn{
+background:#6b7280;
+color:white;
+flex:1;
+}
+
+.save-btn{
+background:#22c55e;
+color:white;
+flex:1;
 }
 </style>
 </head>
-
 <body>
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
+<!-- LOGIN -->
+<div id="loginPage">
+<div class="glass login-box">
+<h2 style="text-align:center;margin-bottom:20px;">🔐 Admin Login</h2>
+<input type="email" id="email" placeholder="Admin Email">
+<input type="password" id="password" placeholder="Password">
+<button class="primary" onclick="login()">Login</button>
+<p id="error" style="color:#f87171;text-align:center;margin-top:10px;"></p>
+</div>
+</div>
 
-<h1>✨ Glass Vote Tracker</h1>
+<!-- MAIN SYSTEM -->
+<div id="mainSystem">
+
+<button class="logout" onclick="logout()">Logout</button>
+
+<h1 style="margin-bottom:20px;">✨ Premium Glass Vote Tracker</h1>
 
 <div class="glass">
 <div class="dashboard">
@@ -161,44 +201,31 @@ tr:hover{background:rgba(255,255,255,0.08)}
 <h3>Add Resident</h3>
 <form id="addForm">
 <input type="text" id="addName" placeholder="Full Name" required>
-<input type="text" id="addPurok" placeholder="Purok (ex: Purok 1)" required>
-
+<input type="text" id="addPurok" placeholder="Purok" required>
 <select id="addGender" required>
 <option value="">Gender</option>
 <option>Male</option>
 <option>Female</option>
 </select>
-
 <input type="date" id="addBirthdate" required>
-
 <select id="addStatus" required>
 <option value="">Civil Status</option>
 <option>Single</option>
 <option>Married</option>
 <option>Widowed</option>
 </select>
-
 <select id="addVote" required>
 <option value="">Vote</option>
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
 <option value="Hindi Sigurado">Not Sure</option>
 </select>
-
-<button type="submit" class="add-btn">Add Resident</button>
+<button type="submit" class="primary">Add Resident</button>
 </form>
 </div>
 
 <div class="glass">
 <h3>Residents</h3>
-
-<div class="filter-bar">
-<input type="text" id="searchInput" placeholder="🔍 Search name...">
-<select id="purokFilter">
-<option value="">Filter by Purok</option>
-</select>
-</div>
-
 <table>
 <thead>
 <tr>
@@ -208,125 +235,98 @@ tr:hover{background:rgba(255,255,255,0.08)}
 <th>Age</th>
 <th>Status</th>
 <th>Vote</th>
-<th>Actions</th>
+<th>Action</th>
 </tr>
 </thead>
 <tbody id="tableBody"></tbody>
 </table>
 </div>
 
-<!-- EDIT MODAL -->
-<div class="modal" id="editModal">
-<div class="modal-content glass">
-<h3>Edit Resident</h3>
-<form id="editForm">
-<input type="text" id="editName" required>
-<input type="text" id="editPurok" required>
+</div>
 
-<select id="editGender" required>
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="editModal">
+<div class="glass modal">
+<h3>Edit Resident</h3>
+<input type="text" id="editName">
+<input type="text" id="editPurok">
+<select id="editGender">
 <option>Male</option>
 <option>Female</option>
 </select>
-
-<input type="date" id="editBirthdate" required>
-
-<select id="editStatus" required>
+<input type="date" id="editBirthdate">
+<select id="editStatus">
 <option>Single</option>
 <option>Married</option>
 <option>Widowed</option>
 </select>
-
-<select id="editVote" required>
+<select id="editVote">
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
 <option value="Hindi Sigurado">Not Sure</option>
 </select>
 
-<button type="submit" class="edit-btn">Save Changes</button>
-</form>
+<div class="modal-buttons">
+<button class="cancel-btn" onclick="closeModal()">Cancel</button>
+<button class="save-btn" onclick="saveEdit()">Save</button>
+</div>
 </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore,collection,addDoc,deleteDoc,doc,updateDoc,onSnapshot }
+import { getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+getFirestore,collection,addDoc,deleteDoc,
+doc,onSnapshot,updateDoc,getDoc
+}
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyBBEQe3_cC9CWej-cDCZ9HMUzSj0xwtMi0",
 authDomain:"shesh-c86b5.firebaseapp.com",
-projectId:"shesh-c86b5"
+projectId:"shesh-c86b5",
+appId:"1:629506404367:web:8f7f6e2b6b07e90e8f3f65"
 };
 
 const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
 const db=getFirestore(app);
 const residents=collection(db,"residents");
 
+let selectedId=null;
 let allData=[];
-let currentEditId=null;
 
-function calculateAge(birth){
-let today=new Date();
-let b=new Date(birth);
-let age=today.getFullYear()-b.getFullYear();
-let m=today.getMonth()-b.getMonth();
-if(m<0||(m===0&&today.getDate()<b.getDate()))age--;
-return age;
+window.login=async()=>{
+try{
+await signInWithEmailAndPassword(auth,email.value,password.value);
+error.textContent="";
+}catch{
+error.textContent="Invalid credentials";
+}
 }
 
-onSnapshot(residents,snapshot=>{
-allData=[];
-snapshot.forEach(docSnap=>{
-allData.push({id:docSnap.id,...docSnap.data()});
+window.logout=async()=>{await signOut(auth);}
+
+onAuthStateChanged(auth,user=>{
+if(user){
+loginPage.style.display="none";
+mainSystem.style.display="block";
+startSystem();
+}else{
+loginPage.style.display="flex";
+mainSystem.style.display="none";
+}
 });
+
+function startSystem(){
+onSnapshot(residents,snap=>{
+allData=[];
+snap.forEach(d=>allData.push({id:d.id,...d.data()}));
 renderTable();
-populatePurokFilter();
 updateDashboard();
 });
-
-function renderTable(){
-const search=searchInput.value.toLowerCase();
-const purok=purokFilter.value;
-tableBody.innerHTML="";
-
-allData
-.filter(d=>
-d.fullname.toLowerCase().includes(search) &&
-(purok===""||d.purok===purok)
-)
-.forEach(data=>{
-tableBody.innerHTML+=`
-<tr>
-<td>${data.fullname}</td>
-<td>${data.purok}</td>
-<td>${data.gender}</td>
-<td>${calculateAge(data.birthdate)}</td>
-<td>${data.civilstatus}</td>
-<td>${data.vote}</td>
-<td>
-<div class="actions">
-<button class="edit-btn" onclick="openEdit('${data.id}','${data.fullname}','${data.purok}','${data.gender}','${data.birthdate}','${data.civilstatus}','${data.vote}')">Edit</button>
-<button class="delete-btn" onclick="deleteData('${data.id}')">Delete</button>
-</div>
-</td>
-</tr>`;
-});
-}
-
-function populatePurokFilter(){
-let puroks=[...new Set(allData.map(d=>d.purok))];
-purokFilter.innerHTML=`<option value="">Filter by Purok</option>`;
-puroks.forEach(p=>{
-purokFilter.innerHTML+=`<option value="${p}">${p}</option>`;
-});
-}
-
-function updateDashboard(){
-totalCount.textContent=allData.length;
-sakinCount.textContent=allData.filter(d=>d.vote==="Sakin").length;
-hindiCount.textContent=allData.filter(d=>d.vote==="Hindi Sakin").length;
-unsureCount.textContent=allData.filter(d=>d.vote==="Hindi Sigurado").length;
-}
 
 addForm.addEventListener("submit",async e=>{
 e.preventDefault();
@@ -340,25 +340,56 @@ vote:addVote.value
 });
 addForm.reset();
 });
+}
+
+function calculateAge(date){
+let t=new Date(),b=new Date(date);
+let age=t.getFullYear()-b.getFullYear();
+let m=t.getMonth()-b.getMonth();
+if(m<0||(m===0&&t.getDate()<b.getDate()))age--;
+return age;
+}
+
+function renderTable(){
+tableBody.innerHTML="";
+allData.forEach(d=>{
+tableBody.innerHTML+=`
+<tr>
+<td>${d.fullname}</td>
+<td>${d.purok}</td>
+<td>${d.gender}</td>
+<td>${calculateAge(d.birthdate)}</td>
+<td>${d.civilstatus}</td>
+<td>${d.vote}</td>
+<td>
+<button class="edit-btn" onclick="openEdit('${d.id}')">Edit</button>
+<button class="delete-btn" onclick="deleteData('${d.id}')">Delete</button>
+</td>
+</tr>`;
+});
+}
 
 window.deleteData=async id=>{
 await deleteDoc(doc(db,"residents",id));
 }
 
-window.openEdit=(id,name,purok,gender,birth,status,vote)=>{
-currentEditId=id;
-editName.value=name;
-editPurok.value=purok;
-editGender.value=gender;
-editBirthdate.value=birth;
-editStatus.value=status;
-editVote.value=vote;
-editModal.style.display="flex";
+window.openEdit=async id=>{
+selectedId=id;
+const snap=await getDoc(doc(db,"residents",id));
+const data=snap.data();
+editName.value=data.fullname;
+editPurok.value=data.purok;
+editGender.value=data.gender;
+editBirthdate.value=data.birthdate;
+editStatus.value=data.civilstatus;
+editVote.value=data.vote;
+editModal.classList.add("active");
 }
 
-editForm.addEventListener("submit",async e=>{
-e.preventDefault();
-await updateDoc(doc(db,"residents",currentEditId),{
+window.closeModal=()=>{editModal.classList.remove("active");}
+
+window.saveEdit=async()=>{
+await updateDoc(doc(db,"residents",selectedId),{
 fullname:editName.value,
 purok:editPurok.value,
 gender:editGender.value,
@@ -366,12 +397,17 @@ birthdate:editBirthdate.value,
 civilstatus:editStatus.value,
 vote:editVote.value
 });
-editModal.style.display="none";
-});
+closeModal();
+}
 
-searchInput.addEventListener("input",renderTable);
-purokFilter.addEventListener("change",renderTable);
+function updateDashboard(){
+totalCount.textContent=allData.length;
+sakinCount.textContent=allData.filter(d=>d.vote==="Sakin").length;
+hindiCount.textContent=allData.filter(d=>d.vote==="Hindi Sakin").length;
+unsureCount.textContent=allData.filter(d=>d.vote==="Hindi Sigurado").length;
+}
 </script>
 
 </body>
 </html>
+
