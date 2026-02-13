@@ -1,5 +1,112 @@
-<!-- FIREBASE SDK -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barangay Census System</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);margin:0;padding:20px}
+h1{text-align:center;color:#fff;margin-bottom:20px}
+.container{max-width:1100px;margin:auto}
+.section{background:#fff;padding:20px;border-radius:16px;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:20px}
+input,select,button{padding:10px;border-radius:8px;border:1px solid #ddd;font-family:'Poppins'}
+input,select{width:100%;margin-bottom:10px}
+button{background:#667eea;color:#fff;border:none;cursor:pointer;font-weight:600}
+button:hover{opacity:0.9}
+.flex{display:flex;gap:10px;flex-wrap:wrap}
+.flex>*{flex:1}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;text-align:left}
+th{background:#667eea;color:#fff}
+tr:hover{background:#f2f2f2}
+.avatar{width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600}
+.badge{padding:4px 8px;border-radius:12px;font-size:12px;font-weight:600;margin-right:4px;display:inline-block}
+.badge-blue{background:#cce5ff}
+.badge-green{background:#d4edda}
+.badge-yellow{background:#fff3cd}
+.status-group{display:flex;gap:10px;margin:10px 0;flex-wrap:wrap}
+.radio-card{flex:1;cursor:pointer}
+.radio-card input{display:none}
+.radio-card span{display:block;padding:10px;border-radius:10px;border:2px solid #ddd;text-align:center;font-weight:600;transition:0.3s;background:#f9f9f9}
+.radio-card input:checked + span{background:#667eea;color:#fff;border-color:#667eea}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Barangay Census System</h1>
+
+<div class="section">
+<h3>Add Resident</h3>
+<form id="censusForm">
+<input type="hidden" id="editIndex">
+
+<div class="flex">
+<input type="text" id="fullname" placeholder="Full Name" required>
+<select id="gender" required>
+<option value="">Gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+</select>
+</div>
+
+<div class="flex">
+<input type="date" id="birthdate" required>
+<select id="civilstatus" required>
+<option value="">Civil Status</option>
+<option>Single</option>
+<option>Married</option>
+<option>Widowed</option>
+</select>
+</div>
+
+<div class="status-group">
+<label class="radio-card">
+<input type="radio" name="status" value="Voter" required>
+<span>🗳️ Voter</span>
+</label>
+
+<label class="radio-card">
+<input type="radio" name="status" value="Student">
+<span>🎓 Student</span>
+</label>
+
+<label class="radio-card">
+<input type="radio" name="status" value="Employed">
+<span>💼 Employed</span>
+</label>
+</div>
+
+<button type="submit">Save Resident</button>
+</form>
+</div>
+
+<div class="section">
+<h3>Resident List</h3>
+<table>
+<thead>
+<tr>
+<th>Avatar</th>
+<th>Name</th>
+<th>Age</th>
+<th>Civil Status</th>
+<th>Tags</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="dataTable"></tbody>
+</table>
+</div>
+</div>
+
+<!-- FIREBASE SCRIPT -->
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { 
   getFirestore, 
@@ -27,11 +134,6 @@ const censusCollection = collection(db, "residents");
 
 let people = [];
 
-// ================= FUNCTIONS =================
-function formatName(name){
-  return name.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
-}
-
 function calculateAge(b){
   let t=new Date(),birth=new Date(b);
   let age=t.getFullYear()-birth.getFullYear();
@@ -44,7 +146,6 @@ function randomColor(){
   return "#"+Math.floor(Math.random()*16777215).toString(16);
 }
 
-// ================= REALTIME =================
 onSnapshot(censusCollection, (snapshot)=>{
   people = [];
   snapshot.forEach(docSnap=>{
@@ -53,7 +154,6 @@ onSnapshot(censusCollection, (snapshot)=>{
   renderTable();
 });
 
-// ================= RENDER =================
 function renderTable(){
   let table=document.getElementById("dataTable");
   table.innerHTML="";
@@ -75,53 +175,29 @@ function renderTable(){
       <td>${p.civilstatus}</td>
       <td>${tags}</td>
       <td>
-        <button onclick="editData('${p.id}')">Edit</button>
         <button onclick="deleteData('${p.id}')">Delete</button>
       </td>
     </tr>`;
   });
 }
 
-// ================= ADD / UPDATE =================
 document.getElementById("censusForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   let selectedStatus=document.querySelector('input[name="status"]:checked');
 
   let person={
-    fullname:formatName(fullname.value),
+    fullname:fullname.value,
     gender:gender.value,
     birthdate:birthdate.value,
     civilstatus:civilstatus.value,
     status:selectedStatus?selectedStatus.value:null
   };
 
-  if(editIndex.value===""){
-    await addDoc(censusCollection, person);
-  }else{
-    await updateDoc(doc(db,"residents",editIndex.value), person);
-    editIndex.value="";
-  }
-
+  await addDoc(censusCollection, person);
   this.reset();
 });
 
-// ================= EDIT =================
-window.editData = function(id){
-  let p = people.find(x=>x.id===id);
-  fullname.value=p.fullname;
-  gender.value=p.gender;
-  birthdate.value=p.birthdate;
-  civilstatus.value=p.civilstatus;
-
-  document.querySelectorAll('input[name="status"]').forEach(r=>{
-    r.checked = r.value===p.status;
-  });
-
-  editIndex.value=id;
-}
-
-// ================= DELETE =================
 window.deleteData = async function(id){
   if(confirm("Delete this resident?")){
     await deleteDoc(doc(db,"residents",id));
@@ -129,3 +205,6 @@ window.deleteData = async function(id){
 }
 
 </script>
+
+</body>
+</html>
