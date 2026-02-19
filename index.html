@@ -147,6 +147,7 @@ margin-top:6px;
 font-weight:700;
 }
 
+/* ==== MINIMAL RESIDENTS OUTPUT + BUTTONS INLINE ==== */
 .table-wrapper{
 max-height:360px;
 overflow:auto;
@@ -156,11 +157,14 @@ border-radius:14px;
 table{
 width:100%;
 border-collapse:collapse;
+table-layout:fixed;
 }
 
 th,td{
-padding:10px;
-font-size:14px;
+padding:6px 6px;
+font-size:11px;
+line-height:1.2;
+word-break:break-word;
 }
 
 thead th{
@@ -168,10 +172,27 @@ position:sticky;
 top:0;
 background:#020617;
 z-index:2;
+font-size:11px;
+}
+
+/* FLEX ACTION BUTTONS PARA HINDI MAGPATONG */
+td:last-child {
+  display: flex;
+  gap:4px;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+td:last-child button {
+  flex: 1 0 auto;
+  padding:4px 6px;
+  font-size:10px;
+  border-radius:8px;
 }
 
 tr{transition:.2s}
 tr:hover{background:rgba(255,255,255,0.08)}
+/* ==== END MINIMAL + INLINE BUTTONS ==== */
 
 .modal-overlay{
 position:fixed;
