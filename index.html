@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Vote Tracker ni Warlito</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,172 +11,181 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
 body{
-background:#0f172a;
+background:radial-gradient(circle at top,#0f172a,#020617);
 min-height:100vh;
 color:white;
 overflow-x:hidden;
 }
 
-/* GLASS */
 .glass{
-background:rgba(255,255,255,0.07);
+background:rgba(255,255,255,0.08);
 backdrop-filter:blur(25px);
-border-radius:20px;
-padding:25px;
+border-radius:22px;
+padding:22px;
 border:1px solid rgba(255,255,255,0.2);
-box-shadow:0 20px 60px rgba(0,0,0,0.5);
-margin-bottom:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.6);
+margin-bottom:20px;
+animation:fadeUp .5s ease;
 }
 
-/* INPUT FIXED HEIGHT */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1;transform:none}
+}
+
 input,select{
 width:100%;
 height:48px;
-padding:0 12px;
+padding:0 14px;
 margin-bottom:12px;
-border-radius:12px;
-border:1px solid rgba(255,255,255,0.2);
-background:rgba(255,255,255,0.08);
+border-radius:14px;
+border:1px solid rgba(255,255,255,0.25);
+background:rgba(255,255,255,0.1);
 color:white;
 outline:none;
 font-size:14px;
+transition:.25s;
 }
 
-select option{
-background:#0f172a;
-color:white;
+input:focus,select:focus{
+border-color:#38bdf8;
+box-shadow:0 0 0 2px rgba(56,189,248,.3);
 }
 
-/* iPHONE DATE FIX */
-input[type="date"]{
-appearance:none;
--webkit-appearance:none;
-line-height:48px;
-}
+select option{background:#020617;color:white}
 
-input[type="date"]::-webkit-calendar-picker-indicator{
-filter:invert(1);
-opacity:0.8;
-}
-
-/* BUTTONS */
 button{
-padding:8px 12px;
+padding:10px 14px;
 border:none;
-border-radius:10px;
+border-radius:14px;
 cursor:pointer;
 font-weight:600;
+transition:.25s;
 }
+
+button:active{transform:scale(.96)}
 
 .primary{
 background:linear-gradient(135deg,#3b82f6,#06b6d4);
 color:white;
+box-shadow:0 0 20px rgba(59,130,246,.35);
 }
 
-.edit-btn{
-background:#22c55e;
-color:white;
-margin-right:5px;
-}
+.primary:hover{box-shadow:0 0 30px rgba(59,130,246,.7)}
 
-.delete-btn{
-background:#ef4444;
-color:white;
-}
+.edit-btn{background:#22c55e;color:white}
+.delete-btn{background:#ef4444;color:white}
 
 .logout{
-position:absolute;
-top:20px;
-right:20px;
+position:fixed;
+top:14px;
+right:14px;
 background:#ef4444;
 color:white;
+z-index:99;
 }
 
-/* DASHBOARD */
-.dashboard{
+#loginPage{
 display:flex;
-gap:15px;
-flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.login-box{width:100%;max-width:360px}
+#mainSystem{display:none;padding:20px}
+
+.header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:18px 20px;
+margin-bottom:20px;
+}
+
+.header-text h1{
+font-size:clamp(20px,5vw,28px);
+font-weight:700;
+line-height:1.2;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.header-text p{
+font-size:13px;
+opacity:.7;
+margin-top:4px;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+gap:12px;
 }
 
 .card{
-flex:1;
-min-width:130px;
-padding:20px;
-border-radius:15px;
-background:rgba(255,255,255,0.05);
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,0.06);
 text-align:center;
 border:1px solid rgba(255,255,255,0.15);
+transition:.25s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+background:rgba(255,255,255,0.1);
+box-shadow:0 0 18px rgba(56,189,248,.25);
 }
 
 .card span{
 display:block;
 font-size:22px;
-margin-top:8px;
+margin-top:6px;
 font-weight:700;
 }
 
-/* LOGIN */
-#loginPage{
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
-
-.login-box{
-width:350px;
-}
-
-/* MAIN */
-#mainSystem{
-display:none;
-padding:20px;
-position:relative;
-}
-
-/* TABLE */
 .table-wrapper{
-max-height:400px;
+max-height:360px;
 overflow:auto;
-border-radius:12px;
+border-radius:14px;
 }
 
 table{
 width:100%;
 border-collapse:collapse;
-min-width:600px;
+min-width:520px;
 }
 
 th,td{
 padding:10px;
 font-size:14px;
-text-align:left;
 }
 
 thead th{
 position:sticky;
 top:0;
-background:#111827;
+background:#020617;
 z-index:2;
 }
 
-tr:hover{
-background:rgba(255,255,255,0.08);
-}
+tr{transition:.2s}
+tr:hover{background:rgba(255,255,255,0.08)}
 
-/* MODAL */
 .modal-overlay{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.65);
 backdrop-filter:blur(8px);
 display:flex;
 align-items:center;
 justify-content:center;
 opacity:0;
 visibility:hidden;
-transition:0.3s ease;
+transition:.3s;
+z-index:200;
 }
 
 .modal-overlay.active{
@@ -185,14 +194,13 @@ visibility:visible;
 }
 
 .modal{
-width:400px;
-transform:scale(0.8);
-transition:0.3s ease;
+width:100%;
+max-width:400px;
+transform:scale(.85);
+transition:.3s;
 }
 
-.modal-overlay.active .modal{
-transform:scale(1);
-}
+.modal-overlay.active .modal{transform:scale(1)}
 
 .modal-buttons{
 display:flex;
@@ -200,23 +208,20 @@ gap:10px;
 margin-top:10px;
 }
 
-.cancel-btn{
-background:#6b7280;
-color:white;
-flex:1;
-}
+.cancel-btn{background:#64748b;color:white;flex:1}
+.save-btn{background:#22c55e;color:white;flex:1}
 
-.save-btn{
-background:#22c55e;
-color:white;
-flex:1;
+@media(max-width:480px){
+.logout{top:10px;right:10px}
+.dashboard{grid-template-columns:repeat(2,1fr)}
+.card span{font-size:18px}
+.table-wrapper{max-height:300px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div id="loginPage">
 <div class="glass login-box">
 <h2 style="text-align:center;margin-bottom:20px;">🔐 Admin Login</h2>
@@ -227,10 +232,15 @@ flex:1;
 </div>
 </div>
 
-<!-- MAIN -->
 <div id="mainSystem">
 <button class="logout" onclick="logout()">Logout</button>
-<h1 style="margin-bottom:20px;">✨ Vote Tracker ni Warlito</h1>
+
+<div class="header glass">
+  <div class="header-text">
+    <h1>Vote Tracker</h1>
+    <p>Admin Dashboard · Warlito</p>
+  </div>
+</div>
 
 <div class="glass">
 <div class="dashboard">
@@ -254,7 +264,11 @@ flex:1;
 <option>Female</option>
 </select>
 
-<input type="date" id="addBirthdate" required>
+<select id="addAgeGroup" required>
+<option value="">Age Group</option>
+<option value="Youth">Youth</option>
+<option value="Adult">Adult</option>
+</select>
 
 <select id="addVote" required>
 <option value="">Vote</option>
@@ -263,17 +277,17 @@ flex:1;
 <option value="Hindi Sigurado">Not Sure</option>
 </select>
 
-<button type="submit" class="primary" style="width:100%;">Add Resident</button>
+<button class="primary" style="width:100%;">Add Resident</button>
 </form>
 </div>
 
 <div class="glass">
 <h3>Residents</h3>
 
-<div style="margin-bottom:10px;display:flex;gap:10px;">
-<button onclick="setAgeFilter('all')" class="primary">All</button>
-<button onclick="setAgeFilter('minor')" class="primary">Youth</button>
-<button onclick="setAgeFilter('adult')" class="primary">Adults</button>
+<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+<button class="primary" onclick="setAgeFilter('all')">All</button>
+<button class="primary" onclick="setAgeFilter('minor')">Youth</button>
+<button class="primary" onclick="setAgeFilter('adult')">Adults</button>
 </div>
 
 <input type="text" id="searchInput" placeholder="Search name...">
@@ -284,7 +298,7 @@ flex:1;
 <tr>
 <th>Name</th>
 <th>Gender</th>
-<th>Age</th>
+<th>Age Group</th>
 <th>Vote</th>
 <th>Action</th>
 </tr>
@@ -295,7 +309,6 @@ flex:1;
 </div>
 </div>
 
-<!-- EDIT MODAL -->
 <div class="modal-overlay" id="editModal">
 <div class="glass modal">
 <h3>Edit Resident</h3>
@@ -305,7 +318,12 @@ flex:1;
 <option>Male</option>
 <option>Female</option>
 </select>
-<input type="date" id="editBirthdate">
+
+<select id="editAgeGroup">
+<option value="Youth">Youth</option>
+<option value="Adult">Adult</option>
+</select>
+
 <select id="editVote">
 <option value="Sakin">Sa'kin</option>
 <option value="Hindi Sakin">Hindi Sa'kin</option>
@@ -316,7 +334,6 @@ flex:1;
 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
 <button class="save-btn" onclick="saveEdit()">Save</button>
 </div>
-
 </div>
 </div>
 
@@ -337,82 +354,66 @@ const auth=getAuth(app);
 const db=getFirestore(app);
 const residents=collection(db,"residents");
 
-let selectedId=null;
-let allData=[];
-let ageFilter="all";
+let allData=[],selectedId=null,ageFilter="all";
+
+/* AUTO CAPITALIZE NAME */
+function autoCapitalizeName(name){
+return name
+.toLowerCase()
+.split(" ")
+.filter(w=>w.trim()!=="")
+.map(w=>w.charAt(0).toUpperCase()+w.slice(1))
+.join(" ");
+}
 
 window.login=async()=>{
 try{
 await signInWithEmailAndPassword(auth,email.value,password.value);
 error.textContent="";
-}catch{
-error.textContent="Invalid credentials";
-}
+}catch{error.textContent="Invalid credentials"}
 }
 
-window.logout=async()=>{await signOut(auth);}
+window.logout=async()=>{await signOut(auth)}
 
-onAuthStateChanged(auth,user=>{
-if(user){
-loginPage.style.display="none";
-mainSystem.style.display="block";
-startSystem();
-}else{
-loginPage.style.display="flex";
-mainSystem.style.display="none";
-}
+onAuthStateChanged(auth,u=>{
+loginPage.style.display=u?"none":"flex";
+mainSystem.style.display=u?"block":"none";
+if(u) start();
 });
 
-function startSystem(){
-onSnapshot(residents,snap=>{
+function start(){
+onSnapshot(residents,s=>{
 allData=[];
-snap.forEach(d=>allData.push({id:d.id,...d.data()}));
-renderTable();
-updateDashboard();
+s.forEach(d=>allData.push({id:d.id,...d.data()}));
+render();
+dashboard();
 });
 
-addForm.addEventListener("submit",async e=>{
+addForm.onsubmit=async e=>{
 e.preventDefault();
 await addDoc(residents,{
-fullname:addName.value,
+fullname:autoCapitalizeName(addName.value),
 gender:addGender.value,
-birthdate:addBirthdate.value,
+ageGroup:addAgeGroup.value,
 vote:addVote.value
 });
 addForm.reset();
-});
+}
 }
 
-function calculateAge(date){
-let t=new Date(),b=new Date(date);
-let age=t.getFullYear()-b.getFullYear();
-let m=t.getMonth()-b.getMonth();
-if(m<0||(m===0&&t.getDate()<b.getDate()))age--;
-return age;
-}
-
-window.setAgeFilter=function(type){
-ageFilter=type;
-renderTable();
-}
-
-function renderTable(){
-let search=searchInput.value.toLowerCase();
+function render(){
+let s=searchInput.value.toLowerCase();
 tableBody.innerHTML="";
-
-allData
-.filter(d=>{
-let age=calculateAge(d.birthdate);
-if(ageFilter==="minor" && (age<15 || age>17)) return false;
-if(ageFilter==="adult" && age<18) return false;
-return d.fullname.toLowerCase().includes(search);
-})
-.forEach(d=>{
+allData.filter(d=>{
+if(ageFilter==="minor"&&d.ageGroup!=="Youth")return false;
+if(ageFilter==="adult"&&d.ageGroup!=="Adult")return false;
+return d.fullname.toLowerCase().includes(s);
+}).forEach(d=>{
 tableBody.innerHTML+=`
 <tr>
 <td>${d.fullname}</td>
 <td>${d.gender}</td>
-<td>${calculateAge(d.birthdate)}</td>
+<td>${d.ageGroup}</td>
 <td>${d.vote}</td>
 <td>
 <button class="edit-btn" onclick="openEdit('${d.id}')">Edit</button>
@@ -422,50 +423,39 @@ tableBody.innerHTML+=`
 });
 }
 
-searchInput.addEventListener("input",renderTable);
-
-window.deleteData=async id=>{
-await deleteDoc(doc(db,"residents",id));
-}
+searchInput.oninput=render;
+window.setAgeFilter=t=>{ageFilter=t;render()}
+window.deleteData=id=>deleteDoc(doc(db,"residents",id))
 
 window.openEdit=async id=>{
 selectedId=id;
-const snap=await getDoc(doc(db,"residents",id));
-const data=snap.data();
-editName.value=data.fullname;
-editGender.value=data.gender;
-editBirthdate.value=data.birthdate;
-editVote.value=data.vote;
+let d=(await getDoc(doc(db,"residents",id))).data();
+editName.value=d.fullname;
+editGender.value=d.gender;
+editAgeGroup.value=d.ageGroup;
+editVote.value=d.vote;
 editModal.classList.add("active");
 }
 
-window.closeModal=()=>{editModal.classList.remove("active");}
+window.closeModal=()=>editModal.classList.remove("active")
 
 window.saveEdit=async()=>{
 await updateDoc(doc(db,"residents",selectedId),{
-fullname:editName.value,
+fullname:autoCapitalizeName(editName.value),
 gender:editGender.value,
-birthdate:editBirthdate.value,
+ageGroup:editAgeGroup.value,
 vote:editVote.value
 });
 closeModal();
 }
 
-function updateDashboard(){
+function dashboard(){
 totalCount.textContent=allData.length;
 sakinCount.textContent=allData.filter(d=>d.vote==="Sakin").length;
 hindiCount.textContent=allData.filter(d=>d.vote==="Hindi Sakin").length;
 unsureCount.textContent=allData.filter(d=>d.vote==="Hindi Sigurado").length;
-
-minorCount.textContent=allData.filter(d=>{
-let age=calculateAge(d.birthdate);
-return age>=15 && age<=17;
-}).length;
-
-adultCount.textContent=allData.filter(d=>{
-let age=calculateAge(d.birthdate);
-return age>=18;
-}).length;
+minorCount.textContent=allData.filter(d=>d.ageGroup==="Youth").length;
+adultCount.textContent=allData.filter(d=>d.ageGroup==="Adult").length;
 }
 </script>
 
