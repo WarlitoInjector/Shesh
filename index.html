@@ -306,10 +306,13 @@ margin-top:10px;
 <div class="glass">
 <h3>Residents</h3>
 
+<!-- FILTER BUTTONS UPDATE -->
 <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
 <button class="primary" onclick="setAgeFilter('all')">All</button>
 <button class="primary" onclick="setAgeFilter('minor')">Youth</button>
 <button class="primary" onclick="setAgeFilter('adult')">Adults</button>
+<button class="primary" onclick="setAgeFilter('unsure')">Not Sure</button>
+<button class="primary" onclick="setAgeFilter('sakin')">Sakin</button>
 </div>
 
 <input type="text" id="searchInput" placeholder="Search name...">
@@ -419,21 +422,23 @@ function render(){
 let s=(searchInput.value||"").toLowerCase();
 tableBody.innerHTML="";
 allData.filter(d=>{
-if(ageFilter==="minor"&&d.ageGroup!=="Youth")return false;
-if(ageFilter==="adult"&&d.ageGroup!=="Adult")return false;
-return d.fullname.toLowerCase().includes(s);
+  if(ageFilter==="minor" && d.ageGroup!=="Youth") return false;
+  if(ageFilter==="adult" && d.ageGroup!=="Adult") return false;
+  if(ageFilter==="unsure" && d.vote!=="Hindi Sigurado") return false;
+  if(ageFilter==="sakin" && d.vote!=="Sakin") return false;
+  return d.fullname.toLowerCase().includes(s);
 }).forEach(d=>{
-tableBody.innerHTML+=`
-<tr>
-<td>${d.fullname}</td>
-<td>${d.gender}</td>
-<td>${d.ageGroup}</td>
-<td>${d.vote}</td>
-<td>
-<button class="edit-btn" onclick="openEdit('${d.id}')">Edit</button>
-<button class="delete-btn" onclick="deleteData('${d.id}')">Delete</button>
-</td>
-</tr>`;
+  tableBody.innerHTML+=`
+  <tr>
+    <td>${d.fullname}</td>
+    <td>${d.gender}</td>
+    <td>${d.ageGroup}</td>
+    <td>${d.vote}</td>
+    <td>
+      <button class="edit-btn" onclick="openEdit('${d.id}')">Edit</button>
+      <button class="delete-btn" onclick="deleteData('${d.id}')">Delete</button>
+    </td>
+  </tr>`;
 });
 }
 
